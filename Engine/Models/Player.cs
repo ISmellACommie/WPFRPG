@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace Engine.Models
 {
@@ -94,10 +88,16 @@ namespace Engine.Models
             get;
             set;
         }
+        public ObservableCollection<QuestStatus> QUESTS
+        {
+            get;
+            set;
+        }
         
         public Player()
         {
             INV = new ObservableCollection<GameItem>();
+            QUESTS = new ObservableCollection<QuestStatus>();
         }
     }
 }
