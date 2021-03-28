@@ -5,9 +5,9 @@ namespace Engine.Factories
 {
     public static class MonsterFactory
     {
-        public static Monster GetMonster(int monsterID)
+        public static Monster GetMonster(int _monsterID)
         {
-            switch (monsterID)
+            switch (_monsterID)
             {
                 case 1:
                     {
@@ -41,15 +41,15 @@ namespace Engine.Factories
 
                 default:
                     {
-                        throw new AggregateException(string.Format("MonsterType '{0}' does not exist", monsterID));
+                        throw new AggregateException(string.Format("MonsterType '{0}' does not exist", _monsterID));
                     }
             }
         }
-        private static void AddLootItem(Monster monster, int itemID, int percentage)
+        private static void AddLootItem(Monster _monster, int _itemID, int _percentage)
         {
-            if (RandomNumberGenerator.NumberBetween(1, 100) <= percentage)
+            if (RandomNumberGenerator.NumberBetween(1, 100) <= _percentage)
             {
-                monster.Inventory.Add(new ItemQuantity(itemID, 1));
+                _monster.Inventory.Add(new ItemQuantity(_itemID, 1));
             }
         }
     }

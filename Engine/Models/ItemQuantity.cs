@@ -6,12 +6,10 @@ namespace Engine.Models
         public int ITEMID
         {
             get;
-            set;
         }
         public int QUANTITY
         {
             get;
-            set;
         }
         public ItemQuantity(int _itemid, int _quantity)
         {
