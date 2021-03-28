@@ -110,5 +110,24 @@ namespace Engine.Models
 
             OnPropertyChanged(nameof(WEAPONS));
         }
+
+        public void RemoveItemFromInventory(GameItem item)
+        {
+            INV.Remove(item);
+            OnPropertyChanged(nameof(WEAPONS));
+        }
+
+        public bool HasAllTheseItems(List<ItemQuantity> items)
+        {
+            foreach(ItemQuantity item in items)
+            {
+                if(INV.Count(i => i.ITEMTYPEID == item.ITEMID) < item.QUANTITY)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

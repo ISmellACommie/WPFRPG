@@ -17,7 +17,7 @@ namespace Engine.Models
         public QuestStatus(Quest quest)
         {
             PlayerQuest = quest;
-            isCompleted = true;
+            isCompleted = false;
         }
     }
 }
