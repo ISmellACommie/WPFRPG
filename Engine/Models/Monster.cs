@@ -63,7 +63,7 @@ namespace Engine.Models
         public Monster(string _name, string _imgname, int _maxhp, int _hp, int _mindmg, int _maxdmg, int _rewardexp, int _rewardgold)
         {
             NAME = _name;
-            IMGNAME = string.Format("/Engine;component/Images/Monsters/{0}", _imgname);
+            IMGNAME = $"/Engine;component/Images/Monsters/{_imgname}";
             MAXHP = _maxhp;
             HP = _hp;
             MINDMG = _mindmg;

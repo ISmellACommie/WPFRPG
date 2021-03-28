@@ -5,23 +5,23 @@ namespace Engine.Models
     public class World
     {
         private List<Location> _locations = new List<Location>();
-        internal void AddLocation(int XCOORD, int YCOORD, string name, string description, string imgname)
+        internal void AddLocation(int _xcoord, int _ycoord, string _name, string _desc, string _imgname)
         {
             Location loc = new Location();
-            loc.XCOORD = XCOORD;
-            loc.YCOORD = YCOORD;
-            loc.NAME = name;
-            loc.DESC = description;
-            loc.IMGNAME = imgname;
+            loc.XCOORD = _xcoord;
+            loc.YCOORD = _ycoord;
+            loc.NAME = _name;
+            loc.DESC = _desc;
+            loc.IMGNAME = $"/Engine;component/Images/Locations/{_imgname}";
 
             _locations.Add(loc);
         }
 
-        public Location LocationAt(int XCOORD, int YCOORD)
+        public Location LocationAt(int _xcoord, int _ycoord)
         {
             foreach(Location loc in _locations)
             {
-                if(loc.XCOORD == XCOORD && loc.YCOORD == YCOORD)
+                if(loc.XCOORD == _xcoord && loc.YCOORD == _ycoord)
                 {
                     return loc;
                 }

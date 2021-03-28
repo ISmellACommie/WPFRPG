@@ -10,8 +10,6 @@ namespace Engine.ViewModels
     {
         public event EventHandler<GameMessageEventArgs> OnMessageRaised;
 
-        #region Properties
-
         private Location _currentLocation;
         private Monster _currentMonster;
         public Player CurrentPlayer
@@ -60,7 +58,7 @@ namespace Engine.ViewModels
                 if(CurrentMonster != null)
                 {
                     RaiseMessage("");
-                    RaiseMessage($"You see a {CurrentMonster.NAME}");
+                    RaiseMessage($"You see a {CurrentMonster.NAME}!");
                 }
             }
         }
@@ -69,39 +67,12 @@ namespace Engine.ViewModels
             get;
             set;
         }
-        public bool HasLocationToNorth
-        {
-            get
-            {
-                return CurrentWorld.LocationAt(CurrentLocation.XCOORD, CurrentLocation.YCOORD + 1) != null; 
-            }
-        }
-        public bool HasLocationToEast
-        {
-            get
-            {
-                return CurrentWorld.LocationAt(CurrentLocation.XCOORD + 1, CurrentLocation.YCOORD) != null;
-            }
-        }
-        public bool HasLocationToWest
-        {
-            get
-            {
-                return CurrentWorld.LocationAt(CurrentLocation.XCOORD - 1, CurrentLocation.YCOORD) != null;
-            }
-        }
-        public bool HasLocationToSouth
-        {
-            get
-            {
-                return CurrentWorld.LocationAt(CurrentLocation.XCOORD, CurrentLocation.YCOORD - 1) != null;
-            }
-        }
-
+        public bool HasLocationToNorth => CurrentWorld.LocationAt(CurrentLocation.XCOORD, CurrentLocation.YCOORD + 1) != null; 
+        public bool HasLocationToEast => CurrentWorld.LocationAt(CurrentLocation.XCOORD + 1, CurrentLocation.YCOORD) != null;
+        public bool HasLocationToWest => CurrentWorld.LocationAt(CurrentLocation.XCOORD - 1, CurrentLocation.YCOORD) != null;
+        public bool HasLocationToSouth => CurrentWorld.LocationAt(CurrentLocation.XCOORD, CurrentLocation.YCOORD - 1) != null;
         public bool HasMonster => CurrentMonster != null;
-
-        #endregion
-
+       
         public GameSession()
         {
             CurrentPlayer = new Player
