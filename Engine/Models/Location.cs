@@ -80,7 +80,12 @@ namespace Engine.Models
 
             foreach(MonsterEncounter monsterEncounter in MonstersHere)
             {
-                return MonsterFactory.GetMonster(monsterEncounter.MONSTERID);
+                runningTotal += monsterEncounter.ENCOUNTERCHANCE;
+
+                if(randomNumber <= runningTotal)
+                {
+                    return MonsterFactory.GetMonster(monsterEncounter.MONSTERID);
+                }
             }
 
             //if there was a problem, return the last monster in the list.
