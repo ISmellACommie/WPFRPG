@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Engine.Models
 {
@@ -88,6 +90,8 @@ namespace Engine.Models
             get;
             set;
         }
+        public List<GameItem> WEAPONS =>
+            INV.Where(i => i is Weapon).ToList();
         public ObservableCollection<QuestStatus> QUESTS
         {
             get;
@@ -98,6 +102,13 @@ namespace Engine.Models
         {
             INV = new ObservableCollection<GameItem>();
             QUESTS = new ObservableCollection<QuestStatus>();
+        }
+
+        public void AddItemToInventory(GameItem _item)
+        {
+            INV.Add(_item);
+
+            OnPropertyChanged(nameof(WEAPONS));
         }
     }
 }

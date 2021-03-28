@@ -20,7 +20,7 @@ namespace Engine.Factories
 
             newWorld.AddLocation(0, -1, "Home",
                 "This is your home",
-                "/Engine/Images/Locations/Home.png");
+                "/Engine;component/Images/Locations/Home.png");
 
             newWorld.AddLocation(-1, 0, "Trading Shop",
                 "The shop of Susan, the trader.",

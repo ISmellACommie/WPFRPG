@@ -1,7 +1,7 @@
 ﻿
 namespace Engine.Models
 {
-    class Weapon : GameItem
+    public class Weapon : GameItem
     {
         public int MINDMG
         {
