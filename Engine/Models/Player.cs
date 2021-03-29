@@ -15,10 +15,7 @@ namespace Engine.Models
 
         public string NAME
         {
-            get 
-            { 
-                return _name; 
-            }
+            get { return _name; }
             set
             {
                 _name = value;
@@ -27,10 +24,7 @@ namespace Engine.Models
         }
         public string CHARCLASS
         {
-            get
-            {
-                return _charclass;
-            }
+            get { return _charclass; }
             set
             {
                 _charclass = value;
@@ -39,10 +33,7 @@ namespace Engine.Models
         }
         public int HP
         {
-            get
-            {
-                return _hp;
-            }
+            get { return _hp; }
             set
             {
                 _hp = value;
@@ -51,10 +42,7 @@ namespace Engine.Models
         }
         public int EXP
         {
-            get
-            {
-                return _exp;
-            }
+            get { return _exp; }
             set
             {
                 _exp = value;
@@ -63,10 +51,7 @@ namespace Engine.Models
         }
         public int LVL
         {
-            get
-            {
-                return _lvl;
-            }
+            get { return _lvl; }
             set
             {
                 _lvl = value;
@@ -75,28 +60,17 @@ namespace Engine.Models
         }
         public int GOLD
         {
-            get
-            {
-                return _gold;
-            }
+            get { return _gold; }
             set
             {
                 _gold = value;
                 OnPropertyChanged(nameof(GOLD));
             }
         }
-        public ObservableCollection<GameItem> INV
-        {
-            get;
-            set;
-        }
+        public ObservableCollection<GameItem> INV { get; set; }
         public List<GameItem> WEAPONS =>
             INV.Where(i => i is Weapon).ToList();
-        public ObservableCollection<QuestStatus> QUESTS
-        {
-            get;
-            set;
-        }
+        public ObservableCollection<QuestStatus> QUESTS { get; set; }
         
         public Player()
         {

@@ -3,21 +3,9 @@ namespace Engine.Models
 {
     public class GameItem
     {
-        public int ITEMTYPEID
-        {
-            get;
-            set;
-        }
-        public string NAME
-        {
-            get;
-            set;
-        }
-        public int PRICE
-        {
-            get;
-            set;
-        }
+        public int ITEMTYPEID { get; set; }
+        public string NAME { get; set; }
+        public int PRICE { get; set; }
 
         public GameItem(int _itemtypeid, string _name, int _price)
         {

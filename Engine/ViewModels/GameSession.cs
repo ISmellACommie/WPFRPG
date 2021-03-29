@@ -12,22 +12,11 @@ namespace Engine.ViewModels
 
         private Location _currentLocation;
         private Monster _currentMonster;
-        public Player CurrentPlayer
-        {
-            get;
-            set;
-        }
-        public World CurrentWorld
-        {
-            get;
-            set;
-        }
+        public Player CurrentPlayer { get; set; }
+        public World CurrentWorld { get; set; }
         public Location CurrentLocation
         {
-            get
-            {
-                return _currentLocation;
-            }
+            get { return _currentLocation; }
             set
             {
                 _currentLocation = value;
@@ -45,10 +34,7 @@ namespace Engine.ViewModels
         }
         public Monster CurrentMonster
         {
-            get
-            {
-                return _currentMonster;
-            }
+            get { return _currentMonster; }
             set
             {
                 _currentMonster = value;
@@ -63,11 +49,7 @@ namespace Engine.ViewModels
                 }
             }
         }
-        public Weapon CurrentWeapon
-        {
-            get;
-            set;
-        }
+        public Weapon CurrentWeapon { get; set; }
         public bool HasLocationToNorth => CurrentWorld.LocationAt(CurrentLocation.XCOORD, CurrentLocation.YCOORD + 1) != null; 
         public bool HasLocationToEast => CurrentWorld.LocationAt(CurrentLocation.XCOORD + 1, CurrentLocation.YCOORD) != null;
         public bool HasLocationToWest => CurrentWorld.LocationAt(CurrentLocation.XCOORD - 1, CurrentLocation.YCOORD) != null;
