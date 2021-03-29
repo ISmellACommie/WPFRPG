@@ -10,7 +10,7 @@ namespace Engine.Models
         public int YCOORD { get; set; }
         public string NAME { get; set; }
         public string DESC { get; set; }
-        public string IMGNAME { get; set}
+        public string IMGNAME { get; set; }
         public List<Quest> QuestsAvailableHere { get; set; } = new List<Quest>();
         public List<MonsterEncounter> MonstersHere { get; set; } = new List<MonsterEncounter>();
         public Trader TraderHere { get; set; }

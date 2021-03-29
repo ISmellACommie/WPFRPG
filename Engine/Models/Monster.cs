@@ -11,7 +11,7 @@ namespace Engine.Models
         public int MAXHP { get; private set; }
         public int HP
         {
-            get { return _hp}
+            get { return _hp; }
             set
             {
                 _hp = value;
