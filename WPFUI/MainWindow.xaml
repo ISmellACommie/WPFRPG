@@ -160,15 +160,19 @@
 
             <TabControl>
                 <TabItem Header="Inventory">
-                    <DataGrid ItemsSource="{Binding CurrentPlayer.INV}"
+                    <DataGrid ItemsSource="{Binding CurrentPlayer.GROUPEDINV}"
                               AutoGenerateColumns="False"
                               HeadersVisibility="Column">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Description"
-                                                Binding="{Binding NAME}"
+                                                Binding="{Binding ITEM.NAME}"
                                                 Width="*"/>
+                            <DataGridTextColumn Header="Qty"
+                                                IsReadOnly="True"
+                                                Width="Auto"
+                                                Binding="{Binding QUANTITY}"/>
                             <DataGridTextColumn Header="Price"
-                                                Binding="{Binding PRICE}"
+                                                Binding="{Binding ITEM.PRICE}"
                                                 Width="Auto"/>
                         </DataGrid.Columns>
                     </DataGrid>

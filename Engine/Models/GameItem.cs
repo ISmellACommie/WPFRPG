@@ -6,16 +6,18 @@ namespace Engine.Models
         public int ITEMTYPEID { get; set; }
         public string NAME { get; set; }
         public int PRICE { get; set; }
+        public bool ISUNIQUE { get; set; }
 
-        public GameItem(int _itemtypeid, string _name, int _price)
+        public GameItem(int _itemtypeid, string _name, int _price, bool _isunique = false)
         {
             ITEMTYPEID = _itemtypeid;
             NAME = _name;
             PRICE = _price;
+            ISUNIQUE = _isunique;
         }
         public GameItem Clone()
         {
-            return new GameItem(ITEMTYPEID, NAME, PRICE);
+            return new GameItem(ITEMTYPEID, NAME, PRICE, ISUNIQUE);
         }
     }
 }
