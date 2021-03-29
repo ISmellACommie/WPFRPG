@@ -49,7 +49,7 @@ namespace Engine.Factories
         {
             if (RandomNumberGenerator.NumberBetween(1, 100) <= _percentage)
             {
-                _monster.INV.Add(new ItemQuantity(_itemID, 1));
+                _monster.AddItemToInventory(ItemFactory.CreateGameItem(_itemID));
             }
         }
     }

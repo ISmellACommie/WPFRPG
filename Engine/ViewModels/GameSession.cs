@@ -77,7 +77,8 @@ namespace Engine.ViewModels
             {
                 NAME = "Viraaj",
                 CHARCLASS = "Fighter",
-                HP = 10,
+                CURRENTHP = 10,
+                MAXHP = 10,
                 GOLD = 1000000,
                 EXP = 0,
                 LVL = 1
@@ -202,12 +203,12 @@ namespace Engine.ViewModels
             }
             else
             {
-                CurrentMonster.HP -= dmgToMonster;
+                CurrentMonster.CURRENTHP -= dmgToMonster;
                 RaiseMessage($"You hit the {CurrentMonster.NAME} for {dmgToMonster} points.");
             }
 
             //if monster is killed, collect rewards and loot
-            if (CurrentMonster.HP <= 0)
+            if (CurrentMonster.CURRENTHP <= 0)
             {
                 RaiseMessage("");
                 RaiseMessage($"You defeated the {CurrentMonster.NAME}");
@@ -215,14 +216,13 @@ namespace Engine.ViewModels
                 CurrentPlayer.EXP += CurrentMonster.REWARDEXP;
                 RaiseMessage($"You receive {CurrentMonster.REWARDEXP} experience points.");
 
-                CurrentPlayer.GOLD += CurrentMonster.REWARDGOLD;
-                RaiseMessage($"You receive {CurrentMonster.REWARDGOLD} gold.");
+                CurrentPlayer.GOLD += CurrentMonster.GOLD;
+                RaiseMessage($"You receive {CurrentMonster.GOLD} gold.");
 
-                foreach (ItemQuantity _itemquantity in CurrentMonster.INV)
+                foreach (GameItem gameitem in CurrentMonster.INV)
                 {
-                    GameItem item = ItemFactory.CreateGameItem(_itemquantity.ITEMID);
-                    CurrentPlayer.AddItemToInventory(item);
-                    RaiseMessage($"You receive {_itemquantity.QUANTITY} {item.NAME}.");
+                    CurrentPlayer.AddItemToInventory(gameitem);
+                    RaiseMessage($"You receive one {gameitem.NAME}.");
                 }
 
                 //get another monster to fight
@@ -239,18 +239,18 @@ namespace Engine.ViewModels
                 }
                 else
                 {
-                    CurrentPlayer.HP -= dmgToPlayer;
+                    CurrentPlayer.CURRENTHP -= dmgToPlayer;
                     RaiseMessage($"The {CurrentMonster.NAME} hit you for {dmgToPlayer} points.");
                 }
 
                 //if player is killed, move them back to  their home
-                if(CurrentPlayer.HP <= 0)
+                if(CurrentPlayer.CURRENTHP <= 0)
                 {
                     RaiseMessage("");
                     RaiseMessage($"The {CurrentMonster.NAME} killed you.");
 
                     CurrentLocation = CurrentWorld.LocationAt(0, -1);
-                    CurrentPlayer.HP = CurrentPlayer.LVL * 10;
+                    CurrentPlayer.CURRENTHP = CurrentPlayer.LVL * 10;
                 }
             }
         }
