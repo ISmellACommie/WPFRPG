@@ -132,7 +132,7 @@ namespace Engine.Models
         {
             INV.Remove(_item);
 
-            GroupedInventoryItem groupedInventoryItemToRemove = GROUPEDINV.FirstOrDefault(gi => gi.ITEM == _item);
+            GroupedInventoryItem groupedInventoryItemToRemove = _item.ISUNIQUE ? GROUPEDINV.FirstOrDefault(gi => gi.ITEM == _item) : GROUPEDINV.FirstOrDefault(gi => gi.ITEM.ITEMTYPEID == _item.ITEMTYPEID);
 
             if(groupedInventoryItemToRemove != null)
             {
