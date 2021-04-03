@@ -11,6 +11,7 @@ namespace Engine.Models
         private int _currenthp;
         private int _maxhp;
         private int _gold;
+        private int _lvl;
 
         public string NAME
         {
@@ -33,7 +34,7 @@ namespace Engine.Models
         public int MAXHP
         {
             get { return _maxhp; }
-            private set
+            protected set
             {
                 _maxhp = value;
                 OnPropertyChanged(nameof(MAXHP));
@@ -48,6 +49,15 @@ namespace Engine.Models
                 OnPropertyChanged(nameof(GOLD));
             }
         }
+        public int LVL
+        {
+            get { return _lvl; }
+            set
+            {
+                _lvl = value;
+                OnPropertyChanged(nameof(LVL));
+            }
+        }
         public ObservableCollection<GameItem> INV { get; set; }
         public ObservableCollection<GroupedInventoryItem> GROUPEDINV { get; set; }
         public List<GameItem> WEAPONS => INV.Where(i => i is Weapon).ToList();
@@ -55,12 +65,13 @@ namespace Engine.Models
 
         public EventHandler OnKilled;
 
-        protected LivingEntity(string _name, int _maxhp, int _currenthp, int _gold)
+        protected LivingEntity(string _name, int _maxhp, int _currenthp, int _gold, int _lvl = 1)
         {
             NAME = _name;
             MAXHP = _maxhp;
             CURRENTHP = _currenthp;
             GOLD = _gold;
+            LVL = _lvl;
 
             INV = new ObservableCollection<GameItem>();
             GROUPEDINV = new ObservableCollection<GroupedInventoryItem>();
