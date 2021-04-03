@@ -3,9 +3,8 @@ namespace Engine.Models
 {
     public class Trader : LivingEntity
     {
-        public Trader(string _name)
+        public Trader(string _name) : base(_name, 9999, 9999, 9999)
         {
-            NAME = _name;
         }
     }
 }

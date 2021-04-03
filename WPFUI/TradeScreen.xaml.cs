@@ -21,7 +21,7 @@ namespace WPFUI
 
             if(groupedInventoryItem != null)
             {
-                Session.CurrentPlayer.GOLD += groupedInventoryItem.ITEM.PRICE;
+                Session.CurrentPlayer.ReceiveGold(groupedInventoryItem.ITEM.PRICE);
                 Session.CurrentTrader.AddItemToInventory(groupedInventoryItem.ITEM);
                 Session.CurrentPlayer.RemoveItemFromInventory(groupedInventoryItem.ITEM);
             }
@@ -35,7 +35,7 @@ namespace WPFUI
             {
                 if(Session.CurrentPlayer.GOLD >= groupedInventoryItem.ITEM.PRICE)
                 {
-                    Session.CurrentPlayer.GOLD -= groupedInventoryItem.ITEM.PRICE;
+                    Session.CurrentPlayer.SpendGold(groupedInventoryItem.ITEM.PRICE);
                     Session.CurrentTrader.RemoveItemFromInventory(groupedInventoryItem.ITEM);
                     Session.CurrentPlayer.AddItemToInventory(groupedInventoryItem.ITEM);
                 }

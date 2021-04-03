@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -14,7 +15,7 @@ namespace Engine.Models
         public string NAME
         {
             get { return _name; }
-            set
+            private set
             {
                 _name = value;
                 OnPropertyChanged(nameof(NAME));
@@ -23,7 +24,7 @@ namespace Engine.Models
         public int CURRENTHP
         {
             get { return _currenthp; }
-            set
+            private set
             {
                 _currenthp = value;
                 OnPropertyChanged(nameof(CURRENTHP));
@@ -32,7 +33,7 @@ namespace Engine.Models
         public int MAXHP
         {
             get { return _maxhp; }
-            set
+            private set
             {
                 _maxhp = value;
                 OnPropertyChanged(nameof(MAXHP));
@@ -41,7 +42,7 @@ namespace Engine.Models
         public int GOLD
         {
             get { return _gold; }
-            set
+            private set
             {
                 _gold = value;
                 OnPropertyChanged(nameof(GOLD));
@@ -50,11 +51,60 @@ namespace Engine.Models
         public ObservableCollection<GameItem> INV { get; set; }
         public ObservableCollection<GroupedInventoryItem> GROUPEDINV { get; set; }
         public List<GameItem> WEAPONS => INV.Where(i => i is Weapon).ToList();
+        public bool ISDEAD => CURRENTHP <= 0;
 
-        protected LivingEntity()
+        public EventHandler OnKilled;
+
+        protected LivingEntity(string _name, int _maxhp, int _currenthp, int _gold)
         {
+            NAME = _name;
+            MAXHP = _maxhp;
+            CURRENTHP = _currenthp;
+            GOLD = _gold;
+
             INV = new ObservableCollection<GameItem>();
             GROUPEDINV = new ObservableCollection<GroupedInventoryItem>();
+        }
+
+        public void TakeDamage(int _hpofdmg)
+        {
+            CURRENTHP -= _hpofdmg;
+
+            if (ISDEAD)
+            {
+                CURRENTHP = 0;
+                RaiseOnKilledEvent();
+            }
+        }
+
+        public void Heal(int _hptoheal)
+        {
+            CURRENTHP += _hptoheal;
+
+            if(CURRENTHP > MAXHP)
+            {
+                CURRENTHP = MAXHP;
+            }
+        }
+
+        public void CompletelyHeal()
+        {
+            CURRENTHP = MAXHP;
+        }
+
+        public void ReceiveGold(int _goldamt)
+        {
+            GOLD += _goldamt;
+        }
+
+        public void SpendGold(int _goldamt)
+        {
+            if(_goldamt > GOLD)
+            {
+                throw new ArgumentOutOfRangeException($"{NAME} only has {GOLD} gold and cannot spend {_goldamt} gold.");
+            }
+
+            GOLD -= _goldamt;
         }
 
         public void AddItemToInventory(GameItem _item)
@@ -97,6 +147,11 @@ namespace Engine.Models
             }
 
             OnPropertyChanged(nameof(WEAPONS));
+        }
+
+        private void RaiseOnKilledEvent()
+        {
+            OnKilled?.Invoke(this, new System.EventArgs());
         }
     }
 }

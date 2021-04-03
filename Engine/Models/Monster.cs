@@ -9,16 +9,12 @@ namespace Engine.Models
         public int MAXDMG { get; set; }
         public int REWARDEXP { get; private set; }
 
-        public Monster(string _name, string _imgname, int _maxhp, int _hp, int _mindmg, int _maxdmg, int _rewardexp, int _rewardgold)
+        public Monster(string _name, string _imgname, int _maxhp, int _currhp, int _mindmg, int _maxdmg, int _rewardexp, int _gold) : base(_name, _maxhp, _currhp, _gold)
         {
-            NAME = _name;
             IMGNAME = $"/Engine;component/Images/Monsters/{_imgname}";
-            MAXHP = _maxhp;
-            CURRENTHP = _hp;
             MINDMG = _mindmg;
             MAXDMG = _maxdmg;
             REWARDEXP = _rewardexp;
-            GOLD = _rewardgold;
         }
     }
 }
