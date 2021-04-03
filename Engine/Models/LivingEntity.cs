@@ -19,7 +19,7 @@ namespace Engine.Models
             private set
             {
                 _name = value;
-                OnPropertyChanged(nameof(NAME));
+                OnPropertyChanged();
             }
         }
         public int CURRENTHP
@@ -28,7 +28,7 @@ namespace Engine.Models
             private set
             {
                 _currenthp = value;
-                OnPropertyChanged(nameof(CURRENTHP));
+                OnPropertyChanged();
             }
         }
         public int MAXHP
@@ -37,7 +37,7 @@ namespace Engine.Models
             protected set
             {
                 _maxhp = value;
-                OnPropertyChanged(nameof(MAXHP));
+                OnPropertyChanged();
             }
         }
         public int GOLD
@@ -46,7 +46,7 @@ namespace Engine.Models
             private set
             {
                 _gold = value;
-                OnPropertyChanged(nameof(GOLD));
+                OnPropertyChanged();
             }
         }
         public int LVL
@@ -55,11 +55,11 @@ namespace Engine.Models
             set
             {
                 _lvl = value;
-                OnPropertyChanged(nameof(LVL));
+                OnPropertyChanged();
             }
         }
-        public ObservableCollection<GameItem> INV { get; set; }
-        public ObservableCollection<GroupedInventoryItem> GROUPEDINV { get; set; }
+        public ObservableCollection<GameItem> INV { get; }
+        public ObservableCollection<GroupedInventoryItem> GROUPEDINV { get; }
         public List<GameItem> WEAPONS => INV.Where(i => i is Weapon).ToList();
         public bool ISDEAD => CURRENTHP <= 0;
 

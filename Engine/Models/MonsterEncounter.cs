@@ -1,9 +1,8 @@
-﻿
-namespace Engine.Models
+﻿namespace Engine.Models
 {
     public class MonsterEncounter
     {
-        public int MONSTERID { get; set; }
+        public int MONSTERID { get; }
         public int ENCOUNTERCHANCE { get; set; }
 
         public MonsterEncounter(int _monsterid, int _encounterchance)

@@ -16,7 +16,7 @@ namespace Engine.Models
             set
             {
                 _charclass = value;
-                OnPropertyChanged(nameof(CHARCLASS));
+                OnPropertyChanged();
             }
         }
         public int EXP
@@ -25,12 +25,12 @@ namespace Engine.Models
             private set
             {
                 _exp = value;
-                OnPropertyChanged(nameof(EXP));
+                OnPropertyChanged();
                 SetLevelAndMaximumHitPoints();
             }
         }
 
-        public ObservableCollection<QuestStatus> QUESTS { get; set; }
+        public ObservableCollection<QuestStatus> QUESTS { get; }
 
         public EventHandler OnLeveledUp;
         

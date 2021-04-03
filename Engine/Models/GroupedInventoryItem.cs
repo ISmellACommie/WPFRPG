@@ -1,5 +1,4 @@
-﻿
-namespace Engine.Models
+﻿namespace Engine.Models
 {
     public class GroupedInventoryItem : BaseNotificationClass
     {

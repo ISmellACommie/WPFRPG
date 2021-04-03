@@ -6,14 +6,23 @@ namespace Engine.Models
 {
     public class Location
     {
-        public int XCOORD { get; set; }
-        public int YCOORD { get; set; }
-        public string NAME { get; set; }
-        public string DESC { get; set; }
-        public string IMGNAME { get; set; }
-        public List<Quest> QuestsAvailableHere { get; set; } = new List<Quest>();
-        public List<MonsterEncounter> MonstersHere { get; set; } = new List<MonsterEncounter>();
+        public int XCOORD { get; }
+        public int YCOORD { get; }
+        public string NAME { get; }
+        public string DESC { get; }
+        public string IMGNAME { get; }
+        public List<Quest> QuestsAvailableHere { get; } = new List<Quest>();
+        public List<MonsterEncounter> MonstersHere { get; } = new List<MonsterEncounter>();
         public Trader TraderHere { get; set; }
+
+        public Location(int _xcoord, int _ycoord, string _name, string _desc, string _imgname)
+        {
+            XCOORD = _xcoord;
+            YCOORD = _ycoord;
+            NAME = _name;
+            DESC = _desc;
+            IMGNAME = _imgname;
+        }
 
         public void AddMonster(int _monsterid, int _encounterchance)
         {

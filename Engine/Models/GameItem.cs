@@ -1,12 +1,11 @@
-﻿
-namespace Engine.Models
+﻿namespace Engine.Models
 {
     public class GameItem
     {
-        public int ITEMTYPEID { get; set; }
-        public string NAME { get; set; }
-        public int PRICE { get; set; }
-        public bool ISUNIQUE { get; set; }
+        public int ITEMTYPEID { get; }
+        public string NAME { get; }
+        public int PRICE { get; }
+        public bool ISUNIQUE { get; }
 
         public GameItem(int _itemtypeid, string _name, int _price, bool _isunique = false)
         {

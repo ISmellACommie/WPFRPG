@@ -4,17 +4,10 @@ namespace Engine.Models
 {
     public class World
     {
-        private List<Location> _locations = new List<Location>();
+        private readonly List<Location> _locations = new List<Location>();
         internal void AddLocation(int _xcoord, int _ycoord, string _name, string _desc, string _imgname)
         {
-            Location loc = new Location();
-            loc.XCOORD = _xcoord;
-            loc.YCOORD = _ycoord;
-            loc.NAME = _name;
-            loc.DESC = _desc;
-            loc.IMGNAME = $"/Engine;component/Images/Locations/{_imgname}";
-
-            _locations.Add(loc);
+            _locations.Add(new Location(_xcoord, _ycoord, _name, _desc, $"/Engine;component/Images/Locations/{_imgname}"));
         }
 
         public Location LocationAt(int _xcoord, int _ycoord)

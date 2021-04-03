@@ -1,15 +1,24 @@
-﻿
-namespace Engine.Models
+﻿namespace Engine.Models
 {
-    public class QuestStatus
+    public class QuestStatus : BaseNotificationClass
     {
+        private bool _isCompleted;
+
         public Quest PlayerQuest { get; set; }
-        public bool isCompleted { get; set; }
+        public bool IsCompleted 
+        {
+            get { return _isCompleted; }
+            set
+            {
+                _isCompleted = value;
+                OnPropertyChanged();
+            }
+        }
 
         public QuestStatus(Quest quest)
         {
             PlayerQuest = quest;
-            isCompleted = false;
+            IsCompleted = false;
         }
     }
 }

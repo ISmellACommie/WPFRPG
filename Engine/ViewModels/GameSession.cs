@@ -35,7 +35,7 @@ namespace Engine.ViewModels
                 }
             }
         }
-        public World CurrentWorld { get; set; }
+        public World CurrentWorld { get; }
         public Location CurrentLocation
         {
             get { return _currentLocation; }
@@ -43,7 +43,7 @@ namespace Engine.ViewModels
             {
                 _currentLocation = value;
 
-                OnPropertyChanged(nameof(CurrentLocation));
+                OnPropertyChanged();
                 OnPropertyChanged(nameof(HasLocationToNorth));
                 OnPropertyChanged(nameof(HasLocationToEast));
                 OnPropertyChanged(nameof(HasLocationToWest));
@@ -76,7 +76,7 @@ namespace Engine.ViewModels
                     RaiseMessage($"You see a {CurrentMonster.NAME} here!");
                 }
 
-                OnPropertyChanged(nameof(CurrentMonster));
+                OnPropertyChanged();
                 OnPropertyChanged(nameof(HasMonster));
             }
         }
@@ -87,7 +87,7 @@ namespace Engine.ViewModels
             {
                 _currentTrader = value;
 
-                OnPropertyChanged(nameof(CurrentTrader));
+                OnPropertyChanged();
                 OnPropertyChanged(nameof(HasTrader));
             }
         }
@@ -146,7 +146,7 @@ namespace Engine.ViewModels
         {
             foreach(Quest quest in CurrentLocation.QuestsAvailableHere)
             {
-                QuestStatus questToComplete = CurrentPlayer.QUESTS.FirstOrDefault(q => q.PlayerQuest.ID == quest.ID && !q.isCompleted);
+                QuestStatus questToComplete = CurrentPlayer.QUESTS.FirstOrDefault(q => q.PlayerQuest.ID == quest.ID && !q.IsCompleted);
 
                 if(questToComplete != null)
                 {
@@ -179,7 +179,7 @@ namespace Engine.ViewModels
                         }
 
                         //mark the quest as completed
-                        questToComplete.isCompleted = true;
+                        questToComplete.IsCompleted = true;
                     }
                 }
             }
