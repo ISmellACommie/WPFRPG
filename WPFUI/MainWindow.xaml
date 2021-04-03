@@ -187,7 +187,7 @@
                                                 Binding="{Binding PlayerQuest.NAME}"
                                                 Width="*"/>
                             <DataGridTextColumn Header="Done?"
-                                                Binding="{Binding isCompleted}"
+                                                Binding="{Binding IsCompleted}"
                                                 Width="Auto"/>
                         </DataGrid.Columns>
                     </DataGrid>
