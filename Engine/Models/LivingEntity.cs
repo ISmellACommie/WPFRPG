@@ -60,7 +60,7 @@ namespace Engine.Models
         }
         public ObservableCollection<GameItem> INV { get; }
         public ObservableCollection<GroupedInventoryItem> GROUPEDINV { get; }
-        public List<GameItem> WEAPONS => INV.Where(i => i is Weapon).ToList();
+        public List<GameItem> WEAPONS => INV.Where(i => i.CATEGORY == GameItem.ItemCategory.Weapon).ToList();
         public bool ISDEAD => CURRENTHP <= 0;
 
         public EventHandler OnKilled;
