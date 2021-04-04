@@ -184,10 +184,10 @@
                               HeadersVisibility="Column">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name"
-                                                Binding="{Binding PlayerQuest.NAME}"
+                                                Binding="{Binding PLAYERQUEST.NAME}"
                                                 Width="*"/>
                             <DataGridTextColumn Header="Done?"
-                                                Binding="{Binding IsCompleted}"
+                                                Binding="{Binding ISCOMPLETED}"
                                                 Width="Auto"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -226,7 +226,7 @@
 
                 <ComboBox Grid.Row="0" Grid.Column="0"
                           ItemsSource="{Binding CurrentPlayer.WEAPONS}"
-                          SelectedItem="{Binding CurrentWeapon}"
+                          SelectedItem="{Binding CurrentPlayer.CURRENTWEAPON}"
                           DisplayMemberPath="NAME"
                           SelectedValuePath="ITEMTYPEID"/>
                 <Button Grid.Row="0" Grid.Column="2"

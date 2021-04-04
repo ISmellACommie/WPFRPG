@@ -12,6 +12,7 @@ namespace Engine.Models
         private int _maxhp;
         private int _gold;
         private int _lvl;
+        private GameItem _currentWeapon;
 
         public string NAME
         {
@@ -58,12 +59,33 @@ namespace Engine.Models
                 OnPropertyChanged();
             }
         }
+        public GameItem CURRENTWEAPON
+        {
+            get { return _currentWeapon; }
+            set
+            {
+                if(_currentWeapon != null)
+                {
+                    _currentWeapon.ACTION.ONACTIONPERFORMED -= RaiseActionPerformedEvent;
+                }
+
+                _currentWeapon = value;
+
+                if(_currentWeapon != null)
+                {
+                    _currentWeapon.ACTION.ONACTIONPERFORMED += RaiseActionPerformedEvent;
+                }
+
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<GameItem> INV { get; }
         public ObservableCollection<GroupedInventoryItem> GROUPEDINV { get; }
         public List<GameItem> WEAPONS => INV.Where(i => i.CATEGORY == GameItem.ItemCategory.Weapon).ToList();
         public bool ISDEAD => CURRENTHP <= 0;
 
-        public EventHandler OnKilled;
+        public EventHandler ONKILLED;
+        public EventHandler<string> ONACTIONPERFORMED;
 
         protected LivingEntity(string _name, int _maxhp, int _currenthp, int _gold, int _lvl = 1)
         {
@@ -75,6 +97,11 @@ namespace Engine.Models
 
             INV = new ObservableCollection<GameItem>();
             GROUPEDINV = new ObservableCollection<GroupedInventoryItem>();
+        }
+
+        public void UseCurrentWeaponOn(LivingEntity target)
+        {
+            CURRENTWEAPON.PerformAction(this, target);
         }
 
         public void TakeDamage(int _hpofdmg)
@@ -162,7 +189,12 @@ namespace Engine.Models
 
         private void RaiseOnKilledEvent()
         {
-            OnKilled?.Invoke(this, new System.EventArgs());
+            ONKILLED?.Invoke(this, new System.EventArgs());
+        }
+
+        private void RaiseActionPerformedEvent(object sender, string result)
+        {
+            ONACTIONPERFORMED?.Invoke(this, result);
         }
     }
 }

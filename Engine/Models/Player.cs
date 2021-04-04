@@ -32,7 +32,7 @@ namespace Engine.Models
 
         public ObservableCollection<QuestStatus> QUESTS { get; }
 
-        public EventHandler OnLeveledUp;
+        public EventHandler ONLEVELEDUP;
         
         public Player(string _name, string _charclass, int _exp, int _maxhp, int _currhp, int _gold) : base(_name, _maxhp, _currhp, _gold)
         {
@@ -69,7 +69,7 @@ namespace Engine.Models
             if(LVL != originalLevel)
             {
                 MAXHP = LVL * 10;
-                OnLeveledUp?.Invoke(this, System.EventArgs.Empty);
+                ONLEVELEDUP?.Invoke(this, System.EventArgs.Empty);
             }
         }
     }

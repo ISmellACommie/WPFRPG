@@ -4,8 +4,8 @@
     {
         private bool _isCompleted;
 
-        public Quest PlayerQuest { get; set; }
-        public bool IsCompleted 
+        public Quest PLAYERQUEST { get; set; }
+        public bool ISCOMPLETED 
         {
             get { return _isCompleted; }
             set
@@ -17,8 +17,8 @@
 
         public QuestStatus(Quest quest)
         {
-            PlayerQuest = quest;
-            IsCompleted = false;
+            PLAYERQUEST = quest;
+            ISCOMPLETED = false;
         }
     }
 }

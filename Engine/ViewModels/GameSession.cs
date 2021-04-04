@@ -22,16 +22,18 @@ namespace Engine.ViewModels
             {
                 if(_currentPlayer != null)
                 {
-                    _currentPlayer.OnLeveledUp -= OnCurrentPlayerLeveledUp;
-                    _currentPlayer.OnKilled -= OnCurrentPlayerKilled;
+                    _currentPlayer.ONACTIONPERFORMED -= OnCurrentPlayerPerformedAction; 
+                    _currentPlayer.ONLEVELEDUP -= OnCurrentPlayerLeveledUp;
+                    _currentPlayer.ONKILLED -= OnCurrentPlayerKilled;
                 }
 
                 _currentPlayer = value;
 
                 if(_currentPlayer != null)
                 {
-                    _currentPlayer.OnLeveledUp += OnCurrentPlayerLeveledUp;
-                    _currentPlayer.OnKilled += OnCurrentPlayerKilled;
+                    _currentPlayer.ONACTIONPERFORMED += OnCurrentPlayerPerformedAction;
+                    _currentPlayer.ONLEVELEDUP += OnCurrentPlayerLeveledUp;
+                    _currentPlayer.ONKILLED += OnCurrentPlayerKilled;
                 }
             }
         }
@@ -53,7 +55,7 @@ namespace Engine.ViewModels
                 GivePlayerQuestsAtLocation();
                 GetMonsterAtLocation();
 
-                CurrentTrader = CurrentLocation.TraderHere;
+                CurrentTrader = CurrentLocation.TRADERHERE;
             }
         }
         public Monster CurrentMonster
@@ -63,14 +65,14 @@ namespace Engine.ViewModels
             {
                 if(_currentMonster != null)
                 {
-                    _currentMonster.OnKilled -= OnCurrentMonsterKilled;
+                    _currentMonster.ONKILLED -= OnCurrentMonsterKilled;
                 }
 
                 _currentMonster = value;
 
                 if(_currentMonster != null)
                 {
-                    _currentMonster.OnKilled += OnCurrentMonsterKilled;
+                    _currentMonster.ONKILLED += OnCurrentMonsterKilled;
 
                     RaiseMessage("");
                     RaiseMessage($"You see a {CurrentMonster.NAME} here!");
@@ -91,7 +93,6 @@ namespace Engine.ViewModels
                 OnPropertyChanged(nameof(HasTrader));
             }
         }
-        public GameItem CurrentWeapon { get; set; }
         public bool HasLocationToNorth => CurrentWorld.LocationAt(CurrentLocation.XCOORD, CurrentLocation.YCOORD + 1) != null; 
         public bool HasLocationToEast => CurrentWorld.LocationAt(CurrentLocation.XCOORD + 1, CurrentLocation.YCOORD) != null;
         public bool HasLocationToWest => CurrentWorld.LocationAt(CurrentLocation.XCOORD - 1, CurrentLocation.YCOORD) != null;
@@ -144,15 +145,15 @@ namespace Engine.ViewModels
 
         private void CompleteQuestsAtLocation()
         {
-            foreach(Quest quest in CurrentLocation.QuestsAvailableHere)
+            foreach(Quest quest in CurrentLocation.QUESTSAVAILABLEHERE)
             {
-                QuestStatus questToComplete = CurrentPlayer.QUESTS.FirstOrDefault(q => q.PlayerQuest.ID == quest.ID && !q.IsCompleted);
+                QuestStatus questToComplete = CurrentPlayer.QUESTS.FirstOrDefault(q => q.PLAYERQUEST.ID == quest.ID && !q.ISCOMPLETED);
 
                 if(questToComplete != null)
                 {
-                    if (CurrentPlayer.HasAllTheseItems(quest.ItemsToComplete))
+                    if (CurrentPlayer.HasAllTheseItems(quest.ITEMSTOCOMPLETE))
                     {
-                        foreach(ItemQuantity itemquantity in quest.ItemsToComplete)
+                        foreach(ItemQuantity itemquantity in quest.ITEMSTOCOMPLETE)
                         {
                             for(int i = 0; i < itemquantity.QUANTITY; i++)
                             {
@@ -170,7 +171,7 @@ namespace Engine.ViewModels
                         RaiseMessage($"You receive {quest.REWARDGOLD} gold.");
                         CurrentPlayer.ReceiveGold(quest.REWARDGOLD);
 
-                        foreach (ItemQuantity itemquantity in quest.RewardItems)
+                        foreach (ItemQuantity itemquantity in quest.REWARDITEMS)
                         {
                             GameItem rewardItem = ItemFactory.CreateGameItem(itemquantity.ITEMID);
 
@@ -179,7 +180,7 @@ namespace Engine.ViewModels
                         }
 
                         //mark the quest as completed
-                        questToComplete.IsCompleted = true;
+                        questToComplete.ISCOMPLETED = true;
                     }
                 }
             }
@@ -187,9 +188,9 @@ namespace Engine.ViewModels
 
         private void GivePlayerQuestsAtLocation()
         {
-            foreach (Quest quest in CurrentLocation.QuestsAvailableHere)
+            foreach (Quest quest in CurrentLocation.QUESTSAVAILABLEHERE)
             {
-                if (!CurrentPlayer.QUESTS.Any(q => q.PlayerQuest.ID == quest.ID))
+                if (!CurrentPlayer.QUESTS.Any(q => q.PLAYERQUEST.ID == quest.ID))
                 {
                     CurrentPlayer.QUESTS.Add(new QuestStatus(quest));
 
@@ -198,7 +199,7 @@ namespace Engine.ViewModels
                     RaiseMessage(quest.DESC);
 
                     RaiseMessage("Return with:");
-                    foreach(ItemQuantity itemQuantity in quest.ItemsToComplete)
+                    foreach(ItemQuantity itemQuantity in quest.ITEMSTOCOMPLETE)
                     {
                         RaiseMessage($"     {itemQuantity.QUANTITY} {ItemFactory.CreateGameItem(itemQuantity.ITEMID).NAME}");
                     }
@@ -206,7 +207,7 @@ namespace Engine.ViewModels
                     RaiseMessage("And you wil receive:");
                     RaiseMessage($"     {quest.REWARDEXP} experience points");
                     RaiseMessage($"     {quest.REWARDGOLD} gold");
-                    foreach(ItemQuantity itemQuantity in quest.RewardItems)
+                    foreach(ItemQuantity itemQuantity in quest.REWARDITEMS)
                     {
                         RaiseMessage($"     {itemQuantity.QUANTITY} {ItemFactory.CreateGameItem(itemQuantity.ITEMID).NAME}");
                     }
@@ -221,24 +222,13 @@ namespace Engine.ViewModels
 
         public void AttackCurrentMonster()
         {
-            if(CurrentWeapon == null)
+            if(CurrentPlayer.CURRENTWEAPON == null)
             {
                 RaiseMessage("You must select a weapon to attack.");
                 return;
             }
 
-            //determine damage to monster
-            int dmgToMonster = RandomNumberGenerator.NumberBetween(CurrentWeapon.MINDMG, CurrentWeapon.MINDMG);
-
-            if (dmgToMonster == 0)
-            {
-                RaiseMessage($"You missed the {CurrentMonster.NAME}");
-            }
-            else
-            {
-                RaiseMessage($"You hit the {CurrentMonster.NAME} for {dmgToMonster} points.");
-                CurrentMonster.TakeDamage(dmgToMonster);
-            }
+            CurrentPlayer.UseCurrentWeaponOn(CurrentMonster);
 
             if (CurrentMonster.ISDEAD)
             {
@@ -295,6 +285,11 @@ namespace Engine.ViewModels
         private void RaiseMessage(string _message)
         {
             OnMessageRaised?.Invoke(this, new GameMessageEventArgs(_message));
+        }
+
+        private void OnCurrentPlayerPerformedAction(object sender, string result)
+        {
+            RaiseMessage(result);
         }
     }
 }
