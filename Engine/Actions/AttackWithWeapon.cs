@@ -37,13 +37,16 @@ namespace Engine.Actions
         {
             int damage = RandomNumberGenerator.NumberBetween(mindmg, maxdmg);
 
+            string actorname = (actor is Player) ? "You" : $"The {actor.NAME.ToLower()}";
+            string targetname = (target is Player) ? "you" : $"the {target.NAME.ToLower()}";
+
             if(damage == 0)
             {
-                ReportResult($"You missed the {target.NAME.ToLower()}.");
+                ReportResult($"{actorname} missed {targetname}.");
             }
             else
             {
-                ReportResult($"You hit the {target.NAME.ToLower()} for {damage} points.");
+                ReportResult($"{actorname} hit {targetname} for {damage} points.");
                 target.TakeDamage(damage);
             }
         }
