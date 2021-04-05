@@ -3,21 +3,17 @@ using Engine.Models;
 
 namespace Engine.Actions
 {
-    public class Heal : IAction
+    public class Heal : BaseAction, IAction
     {
-        private readonly GameItem item;
         private readonly int hptoheal;
 
-        public event EventHandler<string> ONACTIONPERFORMED;
-
-        public Heal(GameItem _item, int _hptoheal)
+        public Heal(GameItem _itemInUse, int _hptoheal) : base(_itemInUse)
         {
-            if(item.CATEGORY != GameItem.ItemCategory.Consumable)
+            if(_itemInUse.CATEGORY != GameItem.ItemCategory.Consumable)
             {
-                throw new ArgumentException($"{_item.NAME} is not a consumable");
+                throw new ArgumentException($"{_itemInUse.NAME} is not a consumable");
             }
 
-            item = _item;
             hptoheal = _hptoheal;
         }
 
@@ -28,11 +24,6 @@ namespace Engine.Actions
 
             ReportResult($"{actorname} heal {targetname} for {hptoheal} point{(hptoheal > 1 ? "s" : "")}.");
             target.Heal(hptoheal);
-        }
-
-        private void ReportResult(string result)
-        {
-            ONACTIONPERFORMED?.Invoke(this, result);
         }
     }
 }

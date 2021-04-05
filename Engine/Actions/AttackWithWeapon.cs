@@ -3,19 +3,16 @@ using Engine.Models;
 
 namespace Engine.Actions
 {
-    public class AttackWithWeapon : IAction
+    public class AttackWithWeapon : BaseAction, IAction
     {
-        private readonly GameItem weapon;
         private readonly int mindmg;
         private readonly int maxdmg;
 
-        public event EventHandler<string> ONACTIONPERFORMED;
-
-        public AttackWithWeapon(GameItem _weapon, int _mindmg, int _maxdmg)
+        public AttackWithWeapon(GameItem _itemInUse, int _mindmg, int _maxdmg) : base(_itemInUse)
         {
-            if(_weapon.CATEGORY != GameItem.ItemCategory.Weapon)
+            if(_itemInUse.CATEGORY != GameItem.ItemCategory.Weapon)
             {
-                throw new ArgumentException($"{weapon.NAME} is not a weapon");
+                throw new ArgumentException($"{_itemInUse.NAME} is not a weapon");
             }
 
             if(_mindmg < 0)
@@ -28,7 +25,6 @@ namespace Engine.Actions
                 throw new ArgumentException("max dmg must be > mindmg");
             }
 
-            weapon = _weapon;
             mindmg = _mindmg;
             maxdmg = _maxdmg;
         }
@@ -49,11 +45,6 @@ namespace Engine.Actions
                 ReportResult($"{actorname} hit {targetname} for {damage} point{(damage > 1 ? "s" : "")}.");
                 target.TakeDamage(damage);
             }
-        }
-
-        private void ReportResult(string result)
-        {
-            ONACTIONPERFORMED?.Invoke(this, result);
         }
     }
 }

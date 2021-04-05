@@ -241,7 +241,7 @@
                           DisplayMemberPath="NAME"/>
 
                 <Button Grid.Row="1" Grid.Column="2"
-                        Visibility="{Binding CurrentPlayer.HASCONSUMABLE}"
+                        Visibility="{Binding CurrentPlayer.HASCONSUMABLE, Converter={StaticResource BooleanToVisibility}}"
                         Content="Use"
                         Click="OnClick_UseCurrentConsumable"/>
             </Grid>

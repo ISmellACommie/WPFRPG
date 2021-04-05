@@ -82,7 +82,7 @@ namespace Engine.Models
         }
         public GameItem CURRENTCONSUMABLE
         {
-            get { return _currentConsumable; }
+            get => _currentConsumable;
             set
             {
                 if(_currentConsumable != null)
