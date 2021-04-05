@@ -18,6 +18,8 @@ namespace Engine.Factories
             BuildWeapon(1502, "Rat claws", 0, 0, 2);
             BuildWeapon(1503, "Spider fangs", 0, 0, 4);
 
+            BuildHealingItem(2001, "Granola bar", 5, 2);
+
             BuildMiscellaneousItem(9001, "Snake fang", 1);
             BuildMiscellaneousItem(9002, "Snakeskin", 2);
             BuildMiscellaneousItem(9003, "Rat tail", 1);
@@ -41,6 +43,13 @@ namespace Engine.Factories
             GameItem weapon = new GameItem(GameItem.ItemCategory.Weapon, _id, _name, _price, true);
             weapon.ACTION = new AttackWithWeapon(weapon, _mindmg, _maxdmg);
             _standardgameitems.Add(weapon);
+        }
+
+        private static void BuildHealingItem(int _id, string _name, int _price, int _hptoheal)
+        {
+            GameItem item = new GameItem(GameItem.ItemCategory.Consumable, _id, _name, _price);
+            item.ACTION = new Heal(item, _hptoheal);
+            _standardgameitems.Add(item);
         }
     }
 }

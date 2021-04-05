@@ -56,5 +56,10 @@ namespace WPFUI
             tradescreen.DataContext = _gameSession;
             tradescreen.ShowDialog();
         }
+
+        private void OnClick_UseCurrentConsumable(object sender, RoutedEventArgs e)
+        {
+            _gameSession.UseCurrentConsumable();
+        }
     }
 }

@@ -46,10 +46,10 @@ namespace Engine.ViewModels
                 _currentLocation = value;
 
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(HasLocationToNorth));
-                OnPropertyChanged(nameof(HasLocationToEast));
-                OnPropertyChanged(nameof(HasLocationToWest));
-                OnPropertyChanged(nameof(HasLocationToSouth));
+                OnPropertyChanged(nameof(HASLOCATIONTONORTH));
+                OnPropertyChanged(nameof(HASLOCATIONTOEAST));
+                OnPropertyChanged(nameof(HASLOCATIONTOWEST));
+                OnPropertyChanged(nameof(HASLOCATIONTOSOUTH));
 
                 CompleteQuestsAtLocation();
                 GivePlayerQuestsAtLocation();
@@ -81,7 +81,7 @@ namespace Engine.ViewModels
                 }
 
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(HasMonster));
+                OnPropertyChanged(nameof(HASMONSTER));
             }
         }
         public Trader CurrentTrader
@@ -92,15 +92,15 @@ namespace Engine.ViewModels
                 _currentTrader = value;
 
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(HasTrader));
+                OnPropertyChanged(nameof(HASTRADER));
             }
         }
-        public bool HasLocationToNorth => CurrentWorld.LocationAt(CurrentLocation.XCOORD, CurrentLocation.YCOORD + 1) != null; 
-        public bool HasLocationToEast => CurrentWorld.LocationAt(CurrentLocation.XCOORD + 1, CurrentLocation.YCOORD) != null;
-        public bool HasLocationToWest => CurrentWorld.LocationAt(CurrentLocation.XCOORD - 1, CurrentLocation.YCOORD) != null;
-        public bool HasLocationToSouth => CurrentWorld.LocationAt(CurrentLocation.XCOORD, CurrentLocation.YCOORD - 1) != null;
-        public bool HasMonster => CurrentMonster != null;
-        public bool HasTrader => CurrentTrader != null;
+        public bool HASLOCATIONTONORTH => CurrentWorld.LocationAt(CurrentLocation.XCOORD, CurrentLocation.YCOORD + 1) != null; 
+        public bool HASLOCATIONTOEAST => CurrentWorld.LocationAt(CurrentLocation.XCOORD + 1, CurrentLocation.YCOORD) != null;
+        public bool HASLOCATIONTOWEST => CurrentWorld.LocationAt(CurrentLocation.XCOORD - 1, CurrentLocation.YCOORD) != null;
+        public bool HASLOCATIONTOSOUTH => CurrentWorld.LocationAt(CurrentLocation.XCOORD, CurrentLocation.YCOORD - 1) != null;
+        public bool HASMONSTER => CurrentMonster != null;
+        public bool HASTRADER => CurrentTrader != null;
        
         public GameSession()
         {
@@ -111,12 +111,14 @@ namespace Engine.ViewModels
                 CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(1001));
             }
 
+            CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(2001));
+
             CurrentWorld = WorldFactory.CreateWorld();
             CurrentLocation = CurrentWorld.LocationAt(0, 0);
         }
         public void MoveNorth()
         {
-            if (HasLocationToNorth)
+            if (HASLOCATIONTONORTH)
             {
                 CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCOORD, CurrentLocation.YCOORD + 1);
             }
@@ -124,14 +126,14 @@ namespace Engine.ViewModels
 
         public void MoveEast()
         {
-            if (HasLocationToEast)
+            if (HASLOCATIONTOEAST)
             {
                 CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCOORD + 1, CurrentLocation.YCOORD);
             }
         }
         public void MoveWest()
         {
-            if (HasLocationToWest)
+            if (HASLOCATIONTOWEST)
             {
                 CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCOORD - 1, CurrentLocation.YCOORD);
             }
@@ -139,7 +141,7 @@ namespace Engine.ViewModels
 
         public void MoveSouth()
         {
-            if (HasLocationToSouth)
+            if (HASLOCATIONTOSOUTH)
             {
                 CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCOORD, CurrentLocation.YCOORD - 1);
             }
@@ -240,6 +242,11 @@ namespace Engine.ViewModels
             {
                 CurrentMonster.UseCurrentWeaponOn(CurrentPlayer);
             }
+        }
+
+        public void UseCurrentConsumable()
+        {
+            CurrentPlayer.UseCurrentConsumable();
         }
 
         private void OnCurrentPlayerKilled(object sender, System.EventArgs e)

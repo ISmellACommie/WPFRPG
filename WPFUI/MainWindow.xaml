@@ -143,7 +143,7 @@
                            Source="{Binding CurrentMonster.IMGNAME}"/>
 
                     <StackPanel Grid.Row="2"
-                                Visibility="{Binding HasMonster, Converter={StaticResource BooleanToVisibility}}"
+                                Visibility="{Binding HASMONSTER, Converter={StaticResource BooleanToVisibility}}"
                                 HorizontalAlignment="Center"
                                 Orientation="Horizontal">
                         <TextBlock>Current Hit Points:</TextBlock>
@@ -210,7 +210,6 @@
 
             <!--Combat Controls-->
             <Grid Grid.Row="0" Grid.Column="0"
-                  Visibility="{Binding HasMonster, Converter={StaticResource BooleanToVisibility}}"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center">
                 <Grid.RowDefinitions>
@@ -225,13 +224,26 @@
                 </Grid.ColumnDefinitions>
 
                 <ComboBox Grid.Row="0" Grid.Column="0"
+                          Visibility="{Binding HASMONSTER, Converter={StaticResource BooleanToVisibility}}"
                           ItemsSource="{Binding CurrentPlayer.WEAPONS}"
                           SelectedItem="{Binding CurrentPlayer.CURRENTWEAPON}"
-                          DisplayMemberPath="NAME"
-                          SelectedValuePath="ITEMTYPEID"/>
+                          DisplayMemberPath="NAME"/>
+                
                 <Button Grid.Row="0" Grid.Column="2"
+                        Visibility="{Binding HASMONSTER, Converter={StaticResource BooleanToVisibility}}"
                         Content="Use"
                         Click="OnClick_AttackMonster"/>
+
+                <ComboBox Grid.Row="1" Grid.Column="0"
+                          Visibility="{Binding CurrentPlayer.HASCONSUMABLE, Converter={StaticResource BooleanToVisibility}}"
+                          ItemsSource="{Binding CurrentPlayer.CONSUMABLES}"
+                          SelectedItem="{Binding CurrentPlayer.CURRENTCONSUMABLE}"
+                          DisplayMemberPath="NAME"/>
+
+                <Button Grid.Row="1" Grid.Column="2"
+                        Visibility="{Binding CurrentPlayer.HASCONSUMABLE}"
+                        Content="Use"
+                        Click="OnClick_UseCurrentConsumable"/>
             </Grid>
             
             <!--Movement Controls-->
@@ -252,27 +264,27 @@
                 <Button Grid.Row="0" Grid.Column="1"
                         Height="25" Width="65" Margin="10"
                         Click="OnClick_MoveNorth"
-                        Visibility="{Binding HasLocationToNorth, Converter={StaticResource BooleanToVisibility}}"
+                        Visibility="{Binding HASLOCATIONTONORTH, Converter={StaticResource BooleanToVisibility}}"
                         Content="North"/>
                 <Button Grid.Row="1" Grid.Column="0"
                         Height="25" Width="65" Margin="10"
                         Click="OnClick_MoveWest"
-                        Visibility="{Binding HasLocationToWest, Converter={StaticResource BooleanToVisibility}}"
+                        Visibility="{Binding HASLOCATIONTOWEST, Converter={StaticResource BooleanToVisibility}}"
                         Content="West"/>
                 <Button Grid.Row="1" Grid.Column="1"
                         Height="25" Width="65" Margin="10"
                         Click="OnClick_DisplayTradeScreen"
-                        Visibility="{Binding HasTrader, Converter={StaticResource BooleanToVisibility}}"
+                        Visibility="{Binding HASTRADER, Converter={StaticResource BooleanToVisibility}}"
                         Content="Trade"/>
                 <Button Grid.Row="1" Grid.Column="2"
                         Height="25" Width="65" Margin="10"
                         Click="OnClick_MoveEast"
-                        Visibility="{Binding HasLocationToEast, Converter={StaticResource BooleanToVisibility}}"
+                        Visibility="{Binding HASLOCATIONTOEAST, Converter={StaticResource BooleanToVisibility}}"
                         Content="East"/>
                 <Button Grid.Row="2" Grid.Column="1"
                         Height="25" Width="65" Margin="10"
                         Click="OnClick_MoveSouth"
-                        Visibility="{Binding HasLocationToSouth, Converter={StaticResource BooleanToVisibility}}"
+                        Visibility="{Binding HASLOCATIONTOSOUTH, Converter={StaticResource BooleanToVisibility}}"
                         Content="South"/>
             </Grid>
 
