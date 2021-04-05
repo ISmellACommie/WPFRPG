@@ -31,6 +31,7 @@ namespace Engine.Models
         }
 
         public ObservableCollection<QuestStatus> QUESTS { get; }
+        public ObservableCollection<Recipe> RECIPES { get; }
 
         public EventHandler ONLEVELEDUP;
         
@@ -40,6 +41,7 @@ namespace Engine.Models
             EXP = _exp;
 
             QUESTS = new ObservableCollection<QuestStatus>();
+            RECIPES = new ObservableCollection<Recipe>();
         }
 
         public bool HasAllTheseItems(List<ItemQuantity> items)
@@ -58,6 +60,14 @@ namespace Engine.Models
         public void AddExperience(int _exp)
         {
             EXP = _exp;
+        }
+
+        public void LearnRecipe(Recipe _recipe)
+        {
+            if(!RECIPES.Any(r => r.ID == _recipe.ID))
+            {
+                RECIPES.Add(_recipe);
+            }
         }
 
         private void SetLevelAndMaximumHitPoints()
