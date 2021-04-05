@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Engine.Models
@@ -42,19 +41,6 @@ namespace Engine.Models
 
             QUESTS = new ObservableCollection<QuestStatus>();
             RECIPES = new ObservableCollection<Recipe>();
-        }
-
-        public bool HasAllTheseItems(List<ItemQuantity> items)
-        {
-            foreach(ItemQuantity item in items)
-            {
-                if(INV.Count(i => i.ITEMTYPEID == item.ITEMID) < item.QUANTITY)
-                {
-                    return false;
-                }
-            }
-
-            return true;
         }
 
         public void AddExperience(int _exp)

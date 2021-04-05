@@ -221,6 +221,29 @@ namespace Engine.Models
             OnPropertyChanged(nameof(HASCONSUMABLE));
         }
 
+        public void RemoveItemsFromInventory(List<ItemQuantity> _itemquantities)
+        {
+            foreach(ItemQuantity _itemquantity in _itemquantities)
+            {
+                for(int i = 0; i < _itemquantity.QUANTITY; i++)
+                {
+                    RemoveItemFromInventory(INV.First(item => item.ITEMTYPEID == _itemquantity.ITEMID));
+                }
+            }
+        }
+
+        public bool HasAllTheseItems(List<ItemQuantity> _items)
+        {
+            foreach(ItemQuantity _item in _items)
+            {
+                if(INV.Count(i => i.ITEMTYPEID == _item.ITEMID) < _item.QUANTITY){
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private void RaiseOnKilledEvent()
         {
             ONKILLED?.Invoke(this, new System.EventArgs());
