@@ -2,8 +2,10 @@
 {
     public class Trader : LivingEntity
     {
-        public Trader(string _name) : base(_name, 9999, 9999, 9999)
+        public int ID { get; }
+        public Trader(int _id, string _name) : base(_name, 9999, 9999, 9999)
         {
+            ID = _id;
         }
     }
 }
