@@ -141,7 +141,7 @@
                            VerticalAlignment="Center"
                            Height="125"
                            Width="125"
-                           Source="{Binding CurrentMonster.IMGNAME}"/>
+                           Source="{Binding CurrentMonster.IMGNAME, Converter={StaticResource FileToBitmapConverter}}"/>
 
                     <StackPanel Grid.Row="2"
                                 Visibility="{Binding HASMONSTER, Converter={StaticResource BooleanToVisibility}}"

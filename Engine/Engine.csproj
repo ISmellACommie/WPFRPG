@@ -63,6 +63,7 @@
     <Compile Include="Factories\WorldFactory.cs" />
     <Compile Include="Models\GameItem.cs" />
     <Compile Include="Models\GroupedInventoryItem.cs" />
+    <Compile Include="Models\ItemPercentage.cs" />
     <Compile Include="Models\ItemQuantity.cs" />
     <Compile Include="Models\LivingEntity.cs" />
     <Compile Include="Models\Monster.cs" />
@@ -86,6 +87,7 @@
     <Content Include="GameData\Locations.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="GameData\Monsters.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\Locations\FarmFields.png">
@@ -115,9 +117,15 @@
     <None Include="Images\Locations\Trader.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Resource Include="Images\Monsters\GiantSpider.png" />
-    <Resource Include="Images\Monsters\Rat.png" />
-    <Resource Include="Images\Monsters\Snake.png" />
+    <None Include="Images\Monsters\GiantSpider.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Monsters\Rat.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Monsters\Snake.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
