@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<GameItems>
+  <Weapons>
+    <Weapon ID ="1001" NAME="Pointy stick" PRICE="1" MINDMG="1" MAXDMG="2"/>
+    <Weapon ID ="1002" NAME="Rusty sword" PRICE="5" MINDMG="1" MAXDMG="3"/>
+    <Weapon ID ="1501" NAME="Snake fang" PRICE="0" MINDMG="0" MAXDMG="2"/>
+    <Weapon ID ="1502" NAME="Rat claw" PRICE="0" MINDMG="0" MAXDMG="2"/>
+    <Weapon ID ="1503" NAME="Spider fang" PRICE="0" MINDMG="0" MAXDMG="4"/>
+  </Weapons>
+  <HealingItems>
+    <HealingItem ID="2001" NAME="Granola bar" PRICE="5" HPTOHEAL="2"/>
+  </HealingItems>
+  <MiscellaneousItems>
+    <MiscellaneousItem ID="3001" NAME="Oats" PRICE="1"/>
+    <MiscellaneousItem ID="3002" NAME="Honey" PRICE="2"/>
+    <MiscellaneousItem ID="3003" NAME="Raisins" PRICE="2"/>
+    <MiscellaneousItem ID="9001" NAME="Snake fang" PRICE="1"/>
+    <MiscellaneousItem ID="9002" NAME="Snakeskin" PRICE="2"/>
+    <MiscellaneousItem ID="9003" NAME="Rat tail" PRICE="1"/>
+    <MiscellaneousItem ID="9004" NAME="Rat fur" PRICE="2"/>
+    <MiscellaneousItem ID="9005" NAME="Spider fang" PRICE="1"/>
+    <MiscellaneousItem ID="9006" NAME="Spider silk" PRICE="2"/>
+  </MiscellaneousItems>
+</GameItems>
