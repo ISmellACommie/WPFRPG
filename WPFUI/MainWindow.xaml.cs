@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Engine.ViewModels;
 using Engine.EventArgs;
@@ -82,6 +83,10 @@ namespace WPFUI
             _userInputActions.Add(Key.D, () => _gameSession.MoveEast());
             _userInputActions.Add(Key.Z, () => _gameSession.AttackCurrentMonster());
             _userInputActions.Add(Key.C, () => _gameSession.UseCurrentConsumable());
+            _userInputActions.Add(Key.I, () => SetTabFocusTo("InventoryTabItem"));
+            _userInputActions.Add(Key.Q, () => SetTabFocusTo("QuestsTabItem"));
+            _userInputActions.Add(Key.R, () => SetTabFocusTo("RecipesTabItem"));
+            _userInputActions.Add(Key.T, () => OnClick_DisplayTradeScreen(this, new RoutedEventArgs()));
         }
 
         private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
@@ -89,6 +94,21 @@ namespace WPFUI
             if (_userInputActions.ContainsKey(e.Key))
             {
                 _userInputActions[e.Key].Invoke();
+            }
+        }
+
+        private void SetTabFocusTo(string _tabname)
+        {
+            foreach(object item in PlayerDataTabControl.Items)
+            {
+                if(item is TabItem tabitem)
+                {
+                    if(tabitem.Name == _tabname)
+                    {
+                        tabitem.IsSelected = true;
+                        return;
+                    }
+                }
             }
         }
     }
