@@ -5,9 +5,9 @@ namespace Engine.Models
     public class World
     {
         private readonly List<Location> _locations = new List<Location>();
-        internal void AddLocation(int _xcoord, int _ycoord, string _name, string _desc, string _imgname)
+        internal void AddLocation(Location location)
         {
-            _locations.Add(new Location(_xcoord, _ycoord, _name, _desc, $"/Engine;component/Images/Locations/{_imgname}"));
+            _locations.Add(location);
         }
 
         public Location LocationAt(int _xcoord, int _ycoord)
