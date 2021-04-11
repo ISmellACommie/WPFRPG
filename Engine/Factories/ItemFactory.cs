@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Engine.Models;
 using Engine.Actions;
+using Engine.Shared;
 
 namespace Engine.Factories
 {
@@ -72,23 +73,23 @@ namespace Engine.Factories
 
                 GameItem gameItem =
                     new GameItem(itemCategory,
-                                 GetXmlAttributeAsInt(node, "ID"),
-                                 GetXmlAttributeAsString(node, "NAME"),
-                                 GetXmlAttributeAsInt(node, "PRICE"),
+                                 node.AttributeAsInt("ID"),
+                                 node.AttributeAsString("NAME"),
+                                 node.AttributeAsInt("PRICE"),
                                  itemCategory == GameItem.ItemCategory.Weapon);
 
                 if(itemCategory == GameItem.ItemCategory.Weapon)
                 {
                     gameItem.ACTION =
                         new AttackWithWeapon(gameItem,
-                                             GetXmlAttributeAsInt(node, "MINDMG"),
-                                             GetXmlAttributeAsInt(node, "MAXDMG"));
+                                             node.AttributeAsInt("MINDMG"),
+                                             node.AttributeAsInt("MAXDMG"));
                 }
                 else if(itemCategory == GameItem.ItemCategory.Consumable)
                 {
                     gameItem.ACTION =
                         new Heal(gameItem,
-                                 GetXmlAttributeAsInt(node, "HPTOHEAL"));
+                                 node.AttributeAsInt("HPTOHEAL"));
                 }
 
                 _standardgameitems.Add(gameItem);
@@ -112,28 +113,6 @@ namespace Engine.Factories
                         return GameItem.ItemCategory.Miscellaneous;
                     }
             }
-        }
-
-        private static int GetXmlAttributeAsInt(XmlNode node, string attributeName)
-        {
-            return Convert.ToInt32(GetXmlAttribute(node, attributeName));
-        }
-
-        private static string GetXmlAttributeAsString(XmlNode node, string attributeName)
-        {
-            return GetXmlAttribute(node, attributeName);
-        }
-
-        private static string GetXmlAttribute(XmlNode node, string attributeName)
-        {
-            XmlAttribute attribute = node.Attributes?[attributeName];
-
-            if(attribute == null)
-            {
-                throw new ArgumentException($"The attribute '{attributeName}' does not exist");
-            }
-
-            return attribute.Value;
         }
     }
 }
