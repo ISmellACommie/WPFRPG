@@ -49,9 +49,9 @@ namespace Engine.Factories
             }
         }
 
-        public static Trader GetTraderByName(string _name)
+        public static Trader GetTraderByID(int _id)
         {
-            return _traders.FirstOrDefault(t => t.NAME == _name);
+            return _traders.FirstOrDefault(t => t.ID == _id);
         }
     }
 }

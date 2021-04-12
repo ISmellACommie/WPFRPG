@@ -93,7 +93,7 @@ namespace Engine.Factories
             }
 
             location.TRADERHERE =
-                TraderFactory.GetTraderByName(traderHere.AttributeAsString("NAME"));
+                TraderFactory.GetTraderByID(traderHere.AttributeAsInt("ID"));
         }
     }
 }
