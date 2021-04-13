@@ -12,7 +12,7 @@ namespace TestEngine.ViewModels
             GameSession gameSession = new GameSession();
 
             Assert.IsNotNull(gameSession.CurrentPlayer);
-            Assert.AreEqual("Town square", gameSession.CurrentLocation.NAME);
+            Assert.AreEqual("Town Square", gameSession.CurrentLocation.NAME);
         }
 
         [TestMethod]

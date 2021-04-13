@@ -188,7 +188,14 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name"
                                                 Binding="{Binding PLAYERQUEST.NAME, Mode=OneWay}"
-                                                Width="*"/>
+                                                Width="*">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Setter Property="ToolTip"
+                                                Value="{Binding PLAYERQUEST.TOOLTIPCONTENTS}"/>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Header="Done?"
                                                 Binding="{Binding ISCOMPLETED, Mode=OneWay}"
                                                 Width="Auto"/>
@@ -204,7 +211,14 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name"
                                         Binding="{Binding NAME, Mode=OneWay}"
-                                        Width="*"/>
+                                        Width="*">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Setter Property="ToolTip"
+                                                Value="{Binding TOOLTIPCONTENTS}"/>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
                             <DataGridTemplateColumn MinWidth="75">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

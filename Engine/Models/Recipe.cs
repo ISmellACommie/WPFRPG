@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Engine.Models
@@ -9,6 +10,14 @@ namespace Engine.Models
         public string NAME { get; }
         public List<ItemQuantity> INGREDIENTS { get; } = new List<ItemQuantity>();
         public List<ItemQuantity> OUTPUTITEMS { get; } = new List<ItemQuantity>();
+        public string TOOLTIPCONTENTS =>
+            "Ingredients" + Environment.NewLine +
+            "===========" + Environment.NewLine +
+            string.Join(Environment.NewLine, INGREDIENTS.Select(i => i.QUANTITYITEMDESCRIPTION)) +
+            Environment.NewLine + Environment.NewLine +
+            "Creates" + Environment.NewLine +
+            "===========" + Environment.NewLine +
+            string.Join(Environment.NewLine, OUTPUTITEMS.Select(i => i.QUANTITYITEMDESCRIPTION));
 
         public Recipe(int _id, string _name)
         {
