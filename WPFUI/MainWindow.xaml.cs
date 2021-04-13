@@ -21,7 +21,7 @@ namespace WPFUI
         public MainWindow()
         {
             InitializeComponent();
-            InitializeUserInputActions();
+            InitialiseUserInputActions();
             _gameSession.OnMessageRaised += OnGameMessageRaised;
             DataContext = _gameSession;
         }
@@ -75,7 +75,7 @@ namespace WPFUI
             _gameSession.CraftItemUsing(recipe);
         }
 
-        private void InitializeUserInputActions()
+        private void InitialiseUserInputActions()
         {
             _userInputActions.Add(Key.W, () => _gameSession.MoveNorth());
             _userInputActions.Add(Key.A, () => _gameSession.MoveWest());

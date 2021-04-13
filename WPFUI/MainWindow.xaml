@@ -162,7 +162,7 @@
             <TabControl x:Name="PlayerDataTabControl">
                 <TabItem Header="Inventory"
                          x:Name="InventoryTabItem">
-                    <DataGrid ItemsSource="{Binding CurrentPlayer.GROUPEDINV}"
+                    <DataGrid ItemsSource="{Binding CurrentPlayer.INV.GROUPEDINV}"
                               AutoGenerateColumns="False"
                               HeadersVisibility="Column">
                         <DataGrid.Columns>
@@ -264,7 +264,7 @@
 
                 <ComboBox Grid.Row="0" Grid.Column="0"
                           Visibility="{Binding HASMONSTER, Converter={StaticResource BooleanToVisibility}}"
-                          ItemsSource="{Binding CurrentPlayer.WEAPONS}"
+                          ItemsSource="{Binding CurrentPlayer.INV.WEAPONS}"
                           SelectedItem="{Binding CurrentPlayer.CURRENTWEAPON}"
                           DisplayMemberPath="NAME"/>
                 
@@ -274,13 +274,13 @@
                         Click="OnClick_AttackMonster"/>
 
                 <ComboBox Grid.Row="1" Grid.Column="0"
-                          Visibility="{Binding CurrentPlayer.HASCONSUMABLE, Converter={StaticResource BooleanToVisibility}}"
-                          ItemsSource="{Binding CurrentPlayer.CONSUMABLES}"
+                          Visibility="{Binding CurrentPlayer.INV.HASCONSUMABLE, Converter={StaticResource BooleanToVisibility}}"
+                          ItemsSource="{Binding CurrentPlayer.INV.CONSUMABLES}"
                           SelectedItem="{Binding CurrentPlayer.CURRENTCONSUMABLE}"
                           DisplayMemberPath="NAME"/>
 
                 <Button Grid.Row="1" Grid.Column="2"
-                        Visibility="{Binding CurrentPlayer.HASCONSUMABLE, Converter={StaticResource BooleanToVisibility}}"
+                        Visibility="{Binding CurrentPlayer.INV.HASCONSUMABLE, Converter={StaticResource BooleanToVisibility}}"
                         Content="Use"
                         Click="OnClick_UseCurrentConsumable"/>
             </Grid>

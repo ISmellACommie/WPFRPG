@@ -106,7 +106,7 @@ namespace Engine.ViewModels
         {
             CurrentPlayer = new Player("Viraaj", "Fighter", 0, 10, 10, 1000000);
 
-            if (!CurrentPlayer.WEAPONS.Any())
+            if (!CurrentPlayer.INV.WEAPONS.Any())
             {
                 CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(1001));
             }
@@ -159,7 +159,7 @@ namespace Engine.ViewModels
 
                 if(questToComplete != null)
                 {
-                    if (CurrentPlayer.HasAllTheseItems(quest.ITEMSTOCOMPLETE))
+                    if (CurrentPlayer.INV.HasAllTheseItems(quest.ITEMSTOCOMPLETE))
                     {
                         CurrentPlayer.RemoveItemsFromInventory(quest.ITEMSTOCOMPLETE);
 
@@ -257,7 +257,7 @@ namespace Engine.ViewModels
 
         public void CraftItemUsing(Recipe _recipe)
         {
-            if (CurrentPlayer.HasAllTheseItems(_recipe.INGREDIENTS))
+            if (CurrentPlayer.INV.HasAllTheseItems(_recipe.INGREDIENTS))
             {
                 CurrentPlayer.RemoveItemsFromInventory(_recipe.INGREDIENTS);
 
@@ -301,7 +301,7 @@ namespace Engine.ViewModels
             RaiseMessage($"You receive {CurrentMonster.GOLD} gold.");
             CurrentPlayer.ReceiveGold(CurrentMonster.GOLD);
 
-            foreach (GameItem gameitem in CurrentMonster.INV)
+            foreach (GameItem gameitem in CurrentMonster.INV.ITEMS)
             {
                 CurrentPlayer.AddItemToInventory(gameitem);
                 RaiseMessage($"You receive one {gameitem.NAME}");

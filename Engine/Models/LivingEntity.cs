@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+using Engine.Services;
 
 namespace Engine.Models
 {
@@ -14,6 +13,7 @@ namespace Engine.Models
         private int _lvl;
         private GameItem _currentWeapon;
         private GameItem _currentConsumable;
+        private Inventory _inventory;
 
         public string NAME
         {
@@ -60,6 +60,15 @@ namespace Engine.Models
                 OnPropertyChanged();
             }
         }
+        public Inventory INV
+        {
+            get => _inventory;
+            private set
+            {
+                _inventory = value;
+                OnPropertyChanged();
+            }
+        }
         public GameItem CURRENTWEAPON
         {
             get { return _currentWeapon; }
@@ -101,12 +110,7 @@ namespace Engine.Models
             }
         }
 
-        public ObservableCollection<GameItem> INV { get; }
-        public ObservableCollection<GroupedInventoryItem> GROUPEDINV { get; }
-        public List<GameItem> WEAPONS => INV.Where(i => i.CATEGORY == GameItem.ItemCategory.Weapon).ToList();
-        public List<GameItem> CONSUMABLES => INV.Where(i => i.CATEGORY == GameItem.ItemCategory.Consumable).ToList();
         public bool ISDEAD => CURRENTHP <= 0;
-        public bool HASCONSUMABLE => CONSUMABLES.Any();
 
         public EventHandler ONKILLED;
         public EventHandler<string> ONACTIONPERFORMED;
@@ -118,9 +122,7 @@ namespace Engine.Models
             CURRENTHP = _currenthp;
             GOLD = _gold;
             LVL = _lvl;
-
-            INV = new ObservableCollection<GameItem>();
-            GROUPEDINV = new ObservableCollection<GroupedInventoryItem>();
+            INV = new Inventory();
         }
 
         public void UseCurrentWeaponOn(LivingEntity target)
@@ -177,71 +179,17 @@ namespace Engine.Models
 
         public void AddItemToInventory(GameItem _item)
         {
-            INV.Add(_item);
-
-            if (_item.ISUNIQUE)
-            {
-                GROUPEDINV.Add(new GroupedInventoryItem(_item, 1));
-            }
-            else
-            {
-                if(!GROUPEDINV.Any(gi => gi.ITEM.ITEMTYPEID == _item.ITEMTYPEID))
-                {
-                    GROUPEDINV.Add(new GroupedInventoryItem(_item, 0));
-                }
-
-                GROUPEDINV.First(gi => gi.ITEM.ITEMTYPEID == _item.ITEMTYPEID).QUANTITY++;
-            }
-
-            OnPropertyChanged(nameof(WEAPONS));
-            OnPropertyChanged(nameof(CONSUMABLES));
-            OnPropertyChanged(nameof(HASCONSUMABLE));
+            INV = INV.AddItem(_item);
         }
 
         public void RemoveItemFromInventory(GameItem _item)
         {
-            INV.Remove(_item);
-
-            GroupedInventoryItem groupedInventoryItemToRemove = _item.ISUNIQUE ? GROUPEDINV.FirstOrDefault(gi => gi.ITEM == _item) : GROUPEDINV.FirstOrDefault(gi => gi.ITEM.ITEMTYPEID == _item.ITEMTYPEID);
-
-            if(groupedInventoryItemToRemove != null)
-            {
-                if(groupedInventoryItemToRemove.QUANTITY == 1)
-                {
-                    GROUPEDINV.Remove(groupedInventoryItemToRemove);
-                }
-                else
-                {
-                    groupedInventoryItemToRemove.QUANTITY--;
-                }
-            }
-
-            OnPropertyChanged(nameof(WEAPONS));
-            OnPropertyChanged(nameof(CONSUMABLES));
-            OnPropertyChanged(nameof(HASCONSUMABLE));
+            INV = INV.RemoveItem(_item);
         }
 
         public void RemoveItemsFromInventory(List<ItemQuantity> _itemquantities)
         {
-            foreach(ItemQuantity _itemquantity in _itemquantities)
-            {
-                for(int i = 0; i < _itemquantity.QUANTITY; i++)
-                {
-                    RemoveItemFromInventory(INV.First(item => item.ITEMTYPEID == _itemquantity.ITEMID));
-                }
-            }
-        }
-
-        public bool HasAllTheseItems(List<ItemQuantity> _items)
-        {
-            foreach(ItemQuantity _item in _items)
-            {
-                if(INV.Count(i => i.ITEMTYPEID == _item.ITEMID) < _item.QUANTITY){
-                    return false;
-                }
-            }
-
-            return true;
+            INV = INV.RemoveItems(_itemquantities);
         }
 
         private void RaiseOnKilledEvent()
